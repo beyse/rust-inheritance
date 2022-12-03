@@ -16,6 +16,9 @@ This is a small repo for me to learn the rust language. I used it to study how t
               / '-----' \
 ```
 
+> **Note**
+> The code in here is not a lesson in good Software Design. I am aware that using inheritance is unjustified in this case. I am just trying to learn the language.
+
 ## Pre-requisites
 
 You need to have rust installed. You can get it from [here](https://www.rust-lang.org/tools/install).
