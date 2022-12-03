@@ -10,7 +10,7 @@ classDiagram
 Car <|-- Sportscar : implements
 Car <|-- Familycar : implements
 Car <|-- CarImpl : implements
-Car : accelerate(duration: f64)
-Car : brake(force: f64)
-Car : get_speed() -> f64
+Car : accelerate()
+Car : brake()
+Car : get_speed()
 ```
