@@ -1,5 +1,6 @@
 mod carlib;
-use crate::carlib::car::Car;
+
+use crate::carlib::car::{Car, CarInheritance};
 use crate::carlib::family_car::Familycar;
 use crate::carlib::sports_car::Sportscar;
 
@@ -18,7 +19,7 @@ fn print_car_speed(car: &dyn Car) {
 //     println!("{} travels at {} km/h", car.name, car.get_speed());
 // }
 
-fn print_car(car: &Box<dyn Car>) {
+fn print_car(car: &dyn Car) {
     println!("{} travels at {} km/h", car.get_name(), car.get_speed());
 }
 
@@ -54,22 +55,24 @@ fn main() {
     // That is cool and all but what about the sports car?
 
     let mut flizzr = Sportscar::new_named("Flizzr".to_string());
+    let flizzr = flizzr.as_mut_car();
     // Here the `imp` can not be accessed. It is private.
     //flizzr.imp.name = "Flizzr".to_string();
     flizzr.accelerate(100.0);
-    print_car_speed(&flizzr);
+    print_car_speed(flizzr);
 
     // let c = carlib::Car::new(); // This does not compile. Car is an interface.
     // let c = <dyn carlib::Car>::new(); // new() does not exist. So this does not compile either.
 
     let mut tuktuk = Familycar::new();
     tuktuk.imp.name = "Tuk-tuk".to_string();
+    let tuktuk = tuktuk.as_mut_car();
 
     tuktuk.accelerate(100.0);
-    print_car_speed(&tuktuk);
+    print_car_speed(tuktuk);
 
     // Now lets create a vector of cars.
-    let mut cars: Vec<Box<dyn Car>> = Vec::new();
+    let mut cars: Vec<Box<dyn CarInheritance>> = Vec::new();
     cars.push(Box::new(Sportscar::new_named(
         "SpeedyMcSpeedface".to_string(),
     )));
@@ -78,7 +81,7 @@ fn main() {
 
     // Iterate over all cars in the vector and accelerate them for 200 seconds.
     for car in cars.iter_mut() {
-        car.accelerate(200.0);
-        print_car(car);
+        car.as_mut_car().accelerate(200.0);
+        print_car(car.as_car());
     }
 }

@@ -1,4 +1,4 @@
-use crate::carlib::car::Car;
+use crate::carlib::car::{Car, CarInheritance};
 use crate::carlib::car_impl::CarImpl;
 
 // Rust seems to encourage composition over direct inheritance.
@@ -27,23 +27,11 @@ impl Sportscar {
         return obj;
     }
 }
-
-// Here we implement the Car trait for the Sportscar.
-// Easy enough boilerplate code. But quite some boilerplate still.
-impl Car for Sportscar {
-    fn accelerate(&mut self, duration: f64) {
-        self.imp.accelerate(duration);
+impl CarInheritance for Sportscar {
+    fn as_car(&self) -> &dyn Car {
+        &self.imp
     }
-
-    fn brake(&mut self, force: f64) {
-        self.imp.brake(force);
-    }
-
-    fn get_speed(&self) -> f64 {
-        self.imp.get_speed()
-    }
-
-    fn get_name(&self) -> String {
-        self.imp.get_name()
+    fn as_mut_car(&mut self) -> &mut dyn Car {
+        &mut self.imp
     }
 }

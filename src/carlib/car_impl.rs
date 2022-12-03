@@ -1,5 +1,5 @@
 // Import the Car trait
-use crate::carlib::car::Car;
+use crate::carlib::car::{Car, CarInheritance};
 
 // So we define a struct that contains the fields
 // such as speed and acceleration.
@@ -9,6 +9,15 @@ pub struct CarImpl {
     // A car can be named anything anytime
     // So no physics applies. Thus I make it public.
     pub name: String, // public field
+}
+
+impl CarInheritance for CarImpl {
+    fn as_car(&self) -> &dyn Car {
+        self
+    }
+    fn as_mut_car(&mut self) -> &mut dyn Car {
+        self
+    }
 }
 
 // If we do not want to expose CarImpl to the outside,
@@ -48,7 +57,6 @@ impl Car for CarImpl {
         // We can access the private fields of the struct
         self.speed += self.acceleration * duration;
     }
-
     fn brake(&mut self, force: f64) {
         self.speed -= force * self.speed;
         if self.speed < 0.0 {
@@ -57,14 +65,12 @@ impl Car for CarImpl {
             self.speed = 0.0;
         }
     }
-
     fn get_speed(&self) -> f64 {
         // Not entirely sure whether I need this .clone().
         // In any case I do not want to return a reference
         // or even move it.
         self.speed.clone()
     }
-
     fn get_name(&self) -> String {
         self.name.clone()
     }

@@ -12,3 +12,10 @@ pub trait Car {
     fn get_name(&self) -> String;
     // The trait itself however cannot have any fields.
 }
+
+//trait to make easy for an "object" to return a refernece to itself that impl
+//Car
+pub trait CarInheritance {
+    fn as_car(&self) -> &dyn Car;
+    fn as_mut_car(&mut self) -> &mut dyn Car;
+}
