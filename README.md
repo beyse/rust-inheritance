@@ -3,16 +3,17 @@
 This is a small repo for me to learn the rust language. I used it to study how to implement inheritance and polymorphism in Rust.
 
 ```
-      __________________________
-     / Hello, this is the first \
-     \ time I program in Rust.  /
-      --------------------------
+     ____________________________
+    / Hello, I come from C++     \
+    | and this is the first time |
+    \ that I program in Rust.    /
+     ----------------------------
+            \
              \
-              \
-                 _~^~^~_
-             \) /  o o  \ (/
-               '_   -   _'
-               / '-----' \         
+                _~^~^~_
+            \) /  o o  \ (/
+              '_   -   _'
+              / '-----' \
 ```
 
 ## Pre-requisites
