@@ -14,7 +14,7 @@ impl Familycar {
             imp: CarImpl::new(),
         };
         obj.imp.acceleration = Familycar::ACCELERATION;
-        return obj;
+        obj
     }
 }
 

@@ -34,7 +34,7 @@ impl CarImpl {
         CarImpl {
             speed: 0.0,
             acceleration: 0.1,
-            name: name,
+            name, // We can just use the shorthand here.
         }
     }
 }
@@ -59,10 +59,7 @@ impl Car for CarImpl {
     }
 
     fn get_speed(&self) -> f64 {
-        // Not entirely sure whether I need this .clone().
-        // In any case I do not want to return a reference
-        // or even move it.
-        self.speed.clone()
+        self.speed
     }
 
     fn get_name(&self) -> String {

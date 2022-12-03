@@ -16,7 +16,7 @@ impl Sportscar {
             imp: CarImpl::new(),
         };
         obj.imp.acceleration = 0.84; // I like fast cars and .84 is double of .42.
-        return obj;
+        obj
     }
     pub fn new_named(name: String) -> Sportscar {
         let mut obj = Sportscar {
@@ -24,7 +24,7 @@ impl Sportscar {
         };
         // I don't quite like the duplication here.
         obj.imp.acceleration = 0.84;
-        return obj;
+        obj
     }
 }
 

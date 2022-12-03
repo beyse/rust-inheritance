@@ -18,7 +18,13 @@ fn print_car_speed(car: &dyn Car) {
 //     println!("{} travels at {} km/h", car.name, car.get_speed());
 // }
 
-fn print_car(car: &Box<dyn Car>) {
+// We could use the dyn keyword to make the function accept any Car.
+// fn print_car(car: &Box<dyn Car>) {
+//     println!("{} travels at {} km/h", car.get_name(), car.get_speed());
+// }
+
+// Or we use a generic that is more encouraged by Rust.
+fn print_car<T: Car + ?Sized>(car: &T) {
     println!("{} travels at {} km/h", car.get_name(), car.get_speed());
 }
 
@@ -79,6 +85,6 @@ fn main() {
     // Iterate over all cars in the vector and accelerate them for 200 seconds.
     for car in cars.iter_mut() {
         car.accelerate(200.0);
-        print_car(car);
+        print_car(car.as_mut());
     }
 }
