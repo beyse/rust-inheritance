@@ -23,6 +23,13 @@ fn print_car(car: &Box<dyn Car>) {
 }
 
 fn main() {
+    // The below code is not working because the CarImpl is private.
+    // To make is accessible one would need to edit the carlib.rs file:
+    // ```rust
+    // - mod car_impl;
+    // + pub mod car_impl;
+    // ```
+
     // let mut car = carlib::CarImpl::new();
     // // Uncommenting the following lines gives a compile error.
     // // car.speed = 200.0; // speed is private
