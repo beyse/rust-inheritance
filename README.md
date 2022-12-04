@@ -17,7 +17,7 @@ This is a small repo for me to learn the rust language. I used it to study how t
 ```
 
 > **Note**
-> The code in here is not a lesson in good Software Design. I am aware that using inheritance is unjustified in this case. I am just trying to learn the language.
+> The code in here is not a lesson in good Software Design. I am aware that using inheritance is unjustified in this case. I am not trying to do OOP inheritance in rust but I am trying to learn the language.
 
 ## Pre-requisites
 
