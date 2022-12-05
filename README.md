@@ -61,6 +61,6 @@ Familycar *-- CarImpl : extends
 
 The program pupulates a dynamic array with cars of type `Sportscar` and `Familycar` and calls the methods of the `Car` trait (like `accelerate()` or `break()`) on them.	
 
+## Credits
 
-
-
+I would like to thank [rbran](https://github.com/rbran) for suggesting the usage of `CarConcept` as a trait as an alternative to what I did initially.
