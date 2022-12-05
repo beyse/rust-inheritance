@@ -1,5 +1,6 @@
 mod carlib;
 use crate::carlib::car::Car;
+use crate::carlib::car_concept::CarConcept;
 use crate::carlib::family_car::Familycar;
 use crate::carlib::sports_car::Sportscar;
 
@@ -75,16 +76,32 @@ fn main() {
     print_car_speed(&tuktuk);
 
     // Now lets create a vector of cars.
-    let mut cars: Vec<Box<dyn Car>> = Vec::new();
-    cars.push(Box::new(Sportscar::new_named(
-        "SpeedyMcSpeedface".to_string(),
-    )));
-    cars.push(Box::new(Familycar::new()));
-    cars.push(Box::new(Sportscar::new()));
+    {
+        // Scope so I can use cars again.
+        let mut cars: Vec<Box<dyn Car>> = Vec::new();
+        cars.push(Box::new(Sportscar::new_named(
+            "SpeedyMcSpeedface".to_string(),
+        )));
+        cars.push(Box::new(Familycar::new()));
+        cars.push(Box::new(Sportscar::new()));
 
-    // Iterate over all cars in the vector and accelerate them for 200 seconds.
-    for car in cars.iter_mut() {
-        car.accelerate(200.0);
-        print_car(car.as_mut());
+        // Iterate over all cars in the vector and accelerate them for 200 seconds.
+        for car in cars.iter_mut() {
+            car.accelerate(200.0);
+            print_car(car.as_mut());
+        }
+    }
+
+    // Alternatively we could also create a vector of CarConcepts.
+    {
+        let mut cars: Vec<Box<dyn CarConcept>> = Vec::new();
+        cars.push(Box::new(Sportscar::new_named("FastyO'Fastboi".to_string())));
+        cars.push(Box::new(Familycar::new()));
+        cars.push(Box::new(Sportscar::new()));
+
+        for car in cars.iter_mut() {
+            car.as_mut_car().accelerate(200.0);
+            print_car(car.as_car());
+        }
     }
 }
