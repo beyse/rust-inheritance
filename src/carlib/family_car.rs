@@ -1,4 +1,5 @@
 use crate::carlib::car::Car;
+use crate::carlib::car_concept::CarConcept;
 use crate::carlib::car_impl::CarImpl;
 
 // Let's try a different approach with the family car.
@@ -29,5 +30,15 @@ impl Car for Familycar {
             fn get_speed(&self) -> f64;
             fn get_name(&self) -> String;
         }
+    }
+}
+
+// Read the comment in src/carlib/sports_car.rs for an explanation.
+impl CarConcept for Familycar {
+    fn as_car(&self) -> &dyn Car {
+        &self.imp
+    }
+    fn as_mut_car(&mut self) -> &mut dyn Car {
+        &mut self.imp
     }
 }
