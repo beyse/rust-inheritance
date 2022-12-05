@@ -1,4 +1,5 @@
 use crate::carlib::car::Car;
+use crate::carlib::car_concept::CarConcept;
 use crate::carlib::car_impl::CarImpl;
 
 // Rust seems to encourage composition over direct inheritance.
@@ -45,5 +46,18 @@ impl Car for Sportscar {
 
     fn get_name(&self) -> String {
         self.imp.get_name()
+    }
+}
+
+// This is an alternative way for polymorphism. We used
+// composition to get the car behavior into the sports
+// car so now we can return it as a car.
+// In a real application you should chose one way or the other.
+impl CarConcept for Sportscar {
+    fn as_car(&self) -> &dyn Car {
+        &self.imp
+    }
+    fn as_mut_car(&mut self) -> &mut dyn Car {
+        &mut self.imp
     }
 }
