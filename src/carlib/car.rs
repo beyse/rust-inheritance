@@ -9,6 +9,6 @@ pub trait Car {
     fn accelerate(&mut self, duration: f64);
     fn brake(&mut self, force: f64);
     fn get_speed(&self) -> f64;
-    fn get_name(&self) -> String;
+    fn get_name(&self) -> &str;
     // The trait itself however cannot have any fields.
 }
