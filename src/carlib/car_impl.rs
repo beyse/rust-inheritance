@@ -44,25 +44,19 @@ impl Car for CarImpl {
     // My physics for acceleration may be wrong here
     // but it's just a toy example.
 
-    fn accelerate(&mut self, duration: f64) {
-        // We can access the private fields of the struct
-        self.speed += self.acceleration * duration;
-    }
-
-    fn brake(&mut self, force: f64) {
-        self.speed -= force * self.speed;
-        if self.speed < 0.0 {
-            // My cars will never go backwards.
-            // Take that, physics!
-            self.speed = 0.0;
-        }
-    }
-
     fn get_speed(&self) -> f64 {
         self.speed
     }
 
     fn get_name(&self) -> &str {
         &self.name
+    }
+
+    fn set_speed(&mut self, new_speed: f64) {
+        self.speed = new_speed;
+    }
+
+    fn get_acceleration(&self) -> f64 {
+        self.acceleration
     }
 }
