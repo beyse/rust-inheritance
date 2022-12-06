@@ -44,7 +44,7 @@ impl Car for Sportscar {
         self.imp.get_speed()
     }
 
-    fn get_name(&self) -> String {
+    fn get_name(&self) -> &str {
         self.imp.get_name()
     }
 }
