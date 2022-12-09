@@ -1,8 +1,7 @@
 mod carlib;
-use crate::carlib::car::Car;
-use crate::carlib::car_concept::CarConcept;
 use crate::carlib::family_car::Familycar;
 use crate::carlib::sports_car::Sportscar;
+use crate::carlib::Car;
 
 // So this is just a little helper function to print the speed.
 fn print_car_speed(car: &dyn Car) {
@@ -25,7 +24,7 @@ fn print_car_speed(car: &dyn Car) {
 // }
 
 // Or we use a generic that is more encouraged by Rust.
-fn print_car<T: Car + ?Sized>(car: &T) {
+fn print_car(car: &dyn Car) {
     println!("{} travels at {} km/h", car.get_name(), car.get_speed());
 }
 
@@ -60,7 +59,7 @@ fn main() {
 
     // That is cool and all but what about the sports car?
 
-    let mut flizzr = Sportscar::new_named("Flizzr".to_string());
+    let mut flizzr = Sportscar::new(Some("Flizzr".to_string()), None);
     // Here the `imp` can not be accessed. It is private.
     //flizzr.imp.name = "Flizzr".to_string();
     flizzr.accelerate(100.0);
@@ -69,9 +68,7 @@ fn main() {
     // let c = carlib::Car::new(); // This does not compile. Car is an interface.
     // let c = <dyn carlib::Car>::new(); // new() does not exist. So this does not compile either.
 
-    let mut tuktuk = Familycar::new();
-    tuktuk.imp.name = "Tuk-tuk".to_string();
-
+    let mut tuktuk = Familycar::new(Some("Tuk-tuk".to_string()));
     tuktuk.accelerate(100.0);
     print_car_speed(&tuktuk);
 
@@ -79,11 +76,12 @@ fn main() {
     {
         // Scope so I can use cars again.
         let mut cars: Vec<Box<dyn Car>> = Vec::new();
-        cars.push(Box::new(Sportscar::new_named(
-            "SpeedyMcSpeedface".to_string(),
+        cars.push(Box::new(Sportscar::new(
+            Some("SpeedyMcSpeedface".to_string()),
+            Some(0.99), //faster then the default
         )));
-        cars.push(Box::new(Familycar::new()));
-        cars.push(Box::new(Sportscar::new()));
+        cars.push(Box::new(Familycar::new(None)));
+        cars.push(Box::new(Sportscar::new(None, None)));
 
         // Iterate over all cars in the vector and accelerate them for 200 seconds.
         for car in cars.iter_mut() {
@@ -94,14 +92,17 @@ fn main() {
 
     // Alternatively we could also create a vector of CarConcepts.
     {
-        let mut cars: Vec<Box<dyn CarConcept>> = Vec::new();
-        cars.push(Box::new(Sportscar::new_named("FastyO'Fastboi".to_string())));
-        cars.push(Box::new(Familycar::new()));
-        cars.push(Box::new(Sportscar::new()));
+        let mut cars: Vec<Box<dyn Car>> = Vec::new();
+        cars.push(Box::new(Sportscar::new(
+            Some("FastyO'Fastboi".to_string()),
+            None,
+        )));
+        cars.push(Box::new(Familycar::new(None)));
+        cars.push(Box::new(Sportscar::new(None, None)));
 
         for car in cars.iter_mut() {
-            car.as_mut_car().accelerate(200.0);
-            print_car(car.as_car());
+            car.accelerate(200.0);
+            print_car(car.as_ref());
         }
     }
 }
